@@ -1,0 +1,14 @@
+# The loopback network interface
+auto lo
+iface lo inet loopback
+
+# The primary network interface
+# Management network
+auto {{ bridge_management_interface }}
+iface {{ bridge_management_interface }} inet manual
+
+# Provider network
+auto {{ bridge_vlan_interface }}
+iface {{ bridge_vlan_interface }} inet manual
+
+source /etc/network/interfaces.d/*.cfg
