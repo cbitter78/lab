@@ -33,7 +33,8 @@
 
     # public keys of users who should be able
     # to ssh as root to the target hosts
-    osa_target_host_ssh_keys: []
+    osa_target_host_ssh_keys:
+      - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDMbl/20hYXBM5VsCU01zv4rc7coO8D5xE56j/GqTv/VJ+iEJrulU/it50SE08j80F++M2ARWN90X8q8I6J7AaIh3q4qZXK2qR3mTt8gD950Kst28x4UyM2XdkCR2T3315d250JQyR6hh8Z8Xzdqn1y/upUeWEdyUCevTl1mPi1XUKbB0qYoByn2MXWryw9hWwqqASE0ScRMKETIpQxw9VG7KbaImWMosYSJRZ2a10mNcrVWDbechO1YNYsLcdylXeD4zfkhK0Fq3VLUoGOrPDrlKW45A9u1b9G/CPgzmno5YFKrXBcCs/p6DYzhkGt+h2u4OUZtYhEY0/OJuCaQw5L lab@charles_lab"
 
   tasks:
     - name: do apt-get dist-upgrade
