@@ -1,0 +1,23 @@
+### HAProxy specific config
+haproxy_stats_enabled: true
+
+neutron_plugin_type: ml2.ovs
+
+neutron_ml2_drivers_type: "flat,vlan"
+neutron_l2_population: "False"
+
+neutron_provider_networks:
+  network_flat_networks: "*"
+  network_types: "vlan"
+  network_vlan_ranges: "physnet1:2000:3899"
+
+neutron_plugins:
+  ml2.ovs:
+    driver_firewall: neutron.agent.linux.iptables_firewall.OVSHybridIptablesFirewallDriver
+    driver_interface: neutron.agent.linux.interface.OVSInterfaceDriver
+    drivers_type: "{{ neutron_ml2_drivers_type }}"
+    l2_population: "{{ neutron_l2_population }}"
+    mechanisms: "openvswitch"
+    plugin_conf_ini_overrides: "{{ neutron_ml2_conf_ini_overrides }}"
+    plugin_core: neutron.plugins.ml2.plugin.Ml2Plugin
+    plugin_ini: plugins/ml2/ml2_conf.ini

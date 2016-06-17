@@ -1,0 +1,106 @@
+---
+cidr_networks:
+  container: 192.168.1.0/24
+  # This is our provider network
+  # I don't think we actually need it defined
+  # since our tenant networks will be VLAN not VXLAN
+  # tunnel: 192.168.2.128/26
+
+used_ips:
+  - "192.168.1.0,192.168.1.24" # lab metal hosts
+  - 192.168.1.129 # VIP
+  - 192.168.2.100 # eth0 on 1st lab host
+
+global_overrides:
+  internal_lb_vip_address: 192.168.1.129
+  external_lb_vip_address: 192.168.1.129
+  management_bridge: "br-mgmt"
+
+  provider_networks:
+    - network:
+        group_binds:
+          - all_containers
+          - hosts
+        type: "raw"
+        container_bridge: "br-mgmt"
+        container_interface: "eth1"
+        container_type: "veth"
+        ip_from_q: "container"
+        is_container_address: true
+        is_ssh_address: true
+    - network:
+        group_binds:
+          - neutron_openvswitch_agent
+        container_bridge: "br-vlan"
+        container_type: "veth"
+        container_interface: "eth11"
+        type: "vlan"
+        range: "101:199"
+        net_name: "vlan"
+    - network:
+        group_binds:
+          - neutron_openvswitch_agent
+        container_bridge: "br-vlan"
+        container_type: "veth"
+        container_interface: "eth12"
+        host_bind_override: "eth12"
+        type: "flat"
+        net_name: "flat"
+
+shared-infra_hosts:
+  lab1:
+    ip: 192.168.1.20
+  lab2:
+    ip: 192.168.1.21
+  lab3:
+    ip: 192.168.1.22
+
+haproxy_hosts:
+  lab1:
+    ip: 192.168.1.20
+  lab2:
+    ip: 192.168.1.21
+  lab3:
+    ip: 192.168.1.22
+
+repo-infra_hosts:
+  lab1:
+    ip: 192.168.1.20
+  lab2:
+    ip: 192.168.1.21
+  lab3:
+    ip: 192.168.1.22
+
+os-infra_hosts:
+  lab1:
+    ip: 192.168.1.20
+  lab2:
+    ip: 192.168.1.21
+  lab3:
+    ip: 192.168.1.22
+
+identity_hosts:
+  lab1:
+    ip: 192.168.1.20
+  lab2:
+    ip: 192.168.1.21
+  lab3:
+    ip: 192.168.1.22
+
+network_hosts:
+  lab1:
+    ip: 192.168.1.20
+  lab2:
+    ip: 192.168.1.21
+  lab3:
+    ip: 192.168.1.22
+
+compute_hosts:
+  lab4:
+    ip: 192.168.1.23
+  lab5:
+    ip: 192.168.1.24
+
+log_hosts:
+  lab1:
+    ip: 192.168.1.20
