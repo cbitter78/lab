@@ -48,59 +48,59 @@ global_overrides:
         net_name: "flat"
 
 shared-infra_hosts:
-  lab1:
+  man1.oslab:
     ip: 192.168.1.20
-  lab2:
+  man2.oslab:
     ip: 192.168.1.21
-  lab3:
+  man3.oslab:
     ip: 192.168.1.22
 
 haproxy_hosts:
-  lab1:
+  man1.oslab:
     ip: 192.168.1.20
-  lab2:
+  man2.oslab:
     ip: 192.168.1.21
-  lab3:
+  man3.oslab:
     ip: 192.168.1.22
 
 repo-infra_hosts:
-  lab1:
+  man1.oslab:
     ip: 192.168.1.20
-  lab2:
+  man2.oslab:
     ip: 192.168.1.21
-  lab3:
+  man3.oslab:
     ip: 192.168.1.22
 
 os-infra_hosts:
-  lab1:
+  man1.oslab:
     ip: 192.168.1.20
-  lab2:
+  man2.oslab:
     ip: 192.168.1.21
-  lab3:
+  man3.oslab:
     ip: 192.168.1.22
 
 identity_hosts:
-  lab1:
+  man1.oslab:
     ip: 192.168.1.20
-  lab2:
+  man2.oslab:
     ip: 192.168.1.21
-  lab3:
+  man3.oslab:
     ip: 192.168.1.22
 
 network_hosts:
-  lab1:
+  man1.oslab:
     ip: 192.168.1.20
-  lab2:
+  man2.oslab:
     ip: 192.168.1.21
-  lab3:
+  man3.oslab:
     ip: 192.168.1.22
 
 compute_hosts:
-  lab4:
+  comp1.oslab:
     ip: 192.168.1.23
-  lab5:
+  comp2.oslab:
     ip: 192.168.1.24
 
 log_hosts:
-  lab1:
+  man1.oslab:
     ip: 192.168.1.20
