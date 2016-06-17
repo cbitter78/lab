@@ -1,2 +1,14 @@
-# openstack_lab
-Git repo ansible playbooks used on my openstack lab
+# My Openstack Lab
+
+This lab is for my personal use.  
+
+
+# Hardware
+
+
+
+
+# Network
+
+
+![image](lab.png)
