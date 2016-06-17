@@ -35,7 +35,7 @@ global_overrides:
         container_type: "veth"
         container_interface: "eth11"
         type: "vlan"
-        range: "101:199"
+        range: "102:199"
         net_name: "vlan"
     - network:
         group_binds:

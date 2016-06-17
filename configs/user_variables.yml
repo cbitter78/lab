@@ -9,7 +9,7 @@ neutron_l2_population: "False"
 neutron_provider_networks:
   network_flat_networks: "*"
   network_types: "vlan"
-  network_vlan_ranges: "physnet1:2000:3899"
+  network_vlan_ranges: "physnet1:102:199"
 
 neutron_plugins:
   ml2.ovs:
