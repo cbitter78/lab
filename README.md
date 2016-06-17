@@ -91,6 +91,10 @@ curl -X POST "http://192.168.1.1:8080/pxe?spoof=192.168.1.20
 ```
 /home/lab/pxelinux.cfg/prep_for_rebuild.sh 20
 ```
+After you have run this script you will see a file prefixed with C0A8011 in /home/lab/pxelinux.cfg folder.   Jsut reboot the host and it will rebuld.
+
+#### PXEMonster
+
 
 PXE Monister is a docker container.  To see if its running you can 
 
