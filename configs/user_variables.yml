@@ -4,8 +4,9 @@ lxc_container_ssh_key: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDMbl/20hYXBM5VsCU0
 
 ### HAProxy specific config
 haproxy_stats_enabled: true
-haproxy_keepalived_internal_vip_cidr: 192.168.1.129/24
-haproxy_keepalived_external_vip_cidr: 192.168.1.129/24
+haproxy_use_keepalived: false
+# haproxy_keepalived_internal_vip_cidr: 192.168.1.129/24
+# haproxy_keepalived_external_vip_cidr: 192.168.1.129/24
 
 ### Neutron specific config
 
