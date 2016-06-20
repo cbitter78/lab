@@ -1,6 +1,5 @@
 ---
 - hosts: lab
-  user: ubuntu
-  become: Yes
+  user: root
   roles:
-    - { role: jdauphant.dns }
+    - { role: ../roles/jdauphant.dns }
