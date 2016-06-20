@@ -1,0 +1,6 @@
+---
+- hosts: lab
+  user: ubuntu
+  become: Yes
+  roles:
+    - { role: jdauphant.dns }
