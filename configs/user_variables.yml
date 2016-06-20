@@ -2,6 +2,8 @@ apply_security_hardening: false
 
 lxc_container_ssh_key: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDMbl/20hYXBM5VsCU01zv4rc7coO8D5xE56j/GqTv/VJ+iEJrulU/it50SE08j80F++M2ARWN90X8q8I6J7AaIh3q4qZXK2qR3mTt8gD950Kst28x4UyM2XdkCR2T3315d250JQyR6hh8Z8Xzdqn1y/upUeWEdyUCevTl1mPi1XUKbB0qYoByn2MXWryw9hWwqqASE0ScRMKETIpQxw9VG7KbaImWMosYSJRZ2a10mNcrVWDbechO1YNYsLcdylXeD4zfkhK0Fq3VLUoGOrPDrlKW45A9u1b9G/CPgzmno5YFKrXBcCs/p6DYzhkGt+h2u4OUZtYhEY0/OJuCaQw5L lab@charles_lab"
 
+pip_validate_certs: False
+
 ### HAProxy specific config
 haproxy_stats_enabled: true
 haproxy_use_keepalived: false
