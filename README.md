@@ -5,13 +5,24 @@ This lab is for my personal use.
 
 # Hardware
 
-
+see [hardware.md](hardware.md)
 
 
 # Network
 
 
 ![image](lab.png)
+
+
+You can access the swithc with
+```
+telnet 10.0.0.150
+
+```
+
+You can also connect to the web interface by connecting to the lab with a ssh prot fordwarding to 10.0.0.150:80
+
+If you dont knwo the user and password then your out of luck.  ;)
 
 
 ## DHCP
