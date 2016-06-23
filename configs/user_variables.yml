@@ -43,4 +43,5 @@ neutron_plugins:
 neutron_openvswitch_agent_ini_overrides:
   agent:
     tunnel_types: ""
+  ovs:
     local_ip: ""
