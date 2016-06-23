@@ -37,3 +37,10 @@ neutron_plugins:
     plugin_conf_ini_overrides: "{{ neutron_ml2_conf_ini_overrides }}"
     plugin_core: neutron.plugins.ml2.plugin.Ml2Plugin
     plugin_ini: plugins/ml2/ml2_conf.ini
+
+# Need to have this until https://review.openstack.org/#/c/332957/ or similar changes
+# merge
+neutron_openvswitch_agent_ini_overrides:
+  agent:
+    tunnel_types: ""
+    local_ip: ""
