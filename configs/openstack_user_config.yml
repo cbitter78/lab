@@ -50,26 +50,10 @@ global_overrides:
 shared-infra_hosts:
   man1.oslab:
     ip: 192.168.1.20
-  man2.oslab:
-    ip: 192.168.1.21
-  man3.oslab:
-    ip: 192.168.1.22
-
-haproxy_hosts:
-  man1.oslab:
-    ip: 192.168.1.20
-  man2.oslab:
-    ip: 192.168.1.21
-  man3.oslab:
-    ip: 192.168.1.22
 
 repo-infra_hosts:
   man1.oslab:
     ip: 192.168.1.20
-  man2.oslab:
-    ip: 192.168.1.21
-  man3.oslab:
-    ip: 192.168.1.22
 
 os-infra_hosts:
   man1.oslab:
@@ -77,32 +61,14 @@ os-infra_hosts:
       heat_apis_container: 0
       heat_engine_container: 0
     ip: 192.168.1.20
-  man2.oslab:
-    affinity:
-      heat_apis_container: 0
-      heat_engine_container: 0
-    ip: 192.168.1.21
-  man3.oslab:
-    affinity:
-      heat_apis_container: 0
-      heat_engine_container: 0
-    ip: 192.168.1.22
 
 identity_hosts:
   man1.oslab:
     ip: 192.168.1.20
-  man2.oslab:
-    ip: 192.168.1.21
-  man3.oslab:
-    ip: 192.168.1.22
 
 network_hosts:
   man1.oslab:
     ip: 192.168.1.20
-  man2.oslab:
-    ip: 192.168.1.21
-  man3.oslab:
-    ip: 192.168.1.22
 
 compute_hosts:
   comp1.oslab:
