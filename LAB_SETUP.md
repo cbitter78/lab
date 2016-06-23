@@ -5,13 +5,21 @@
 From the jumpbox as the `lab` user.
 
 ```shell
+cd ~/openstack_lab
+ansible-galaxy install -r requirements.yml -p roles
 cd ~/openstack_lab/playbooks
 ansible-playbook target-host-prep.yml
 ansible-playbook bridge-config.yml
 ansible-playbook dns.yml
 
 # Use the configs from the lab repo for OSA
-cp configs/*.yml /etc/openstack_deploy/
+cp ../configs/*.yml /etc/openstack_deploy/
+
+# Blow away any old inventory files and facts
+rm -rf /etc/openstack_deploy/ansible_facts/*
+rm /etc/openstack_deploy/openstack_inventory.json
+rm /etc/openstack_deploy/openstack_hostnames_ips.yml
+rm /etc/openstack_deploy/backup_openstack_inventory.tar
 
 # Generate the secrets config file
 cd /opt/openstack-ansible/scripts
