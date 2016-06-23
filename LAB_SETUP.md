@@ -64,6 +64,10 @@ On each `neutron-agents-container` as `root` user.
 ovs-vsctl add-br br-provider
 ovs-vsctl add-port br-provider eth12
 
+# comment out bad local_ip config that will be fixed by
+# patch https://review.openstack.org/#/c/332957/ eventually
+vi /etc/neutron/plugins/ml2/openvswitch_agent.ini
+
 # Bounce the agent
 service neutron-openvswitch-agent restart
 ```
@@ -77,7 +81,11 @@ On each compute host as `root` user.
 # eth0 is the physical host network interface
 # that will provide link to the provider network VLAN
 ovs-vsctl add-br br-provider
-ovs-vsctl add-port br-provider eth0
+ovs-vsctl add-port br-provider br-vlan
+
+# comment out bad local_ip config that will be fixed by
+# patch https://review.openstack.org/#/c/332957/ eventually
+vi /etc/neutron/plugins/ml2/openvswitch_agent.ini
 
 # Bounce the agent
 service neutron-openvswitch-agent restart
