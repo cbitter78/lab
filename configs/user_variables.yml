@@ -11,6 +11,143 @@ haproxy_use_keepalived: false
 # haproxy_keepalived_internal_vip_cidr: 192.168.1.129/24
 # haproxy_keepalived_external_vip_cidr: 192.168.1.129/24
 
+haproxy_service_configs:
+  - service:
+      haproxy_service_name: galera
+      haproxy_backend_nodes: "{{ [groups['galera_all'][0]] | default([]) }}"  # list expected
+      haproxy_backup_nodes: "{{ groups['galera_all'][1:] | default([]) }}"
+      haproxy_port: 3306
+      haproxy_balance_type: tcp
+      haproxy_timeout_client: 5000s
+      haproxy_timeout_server: 5000s
+      haproxy_backend_options:
+        - "mysql-check user {{ galera_monitoring_user }}"
+      haproxy_whitelist_networks:
+        - 192.168.0.0/16
+        - 172.16.0.0/12
+        - 10.0.0.0/8
+  - service:
+      haproxy_service_name: repo_all
+      haproxy_backend_nodes: "{{ groups['repo_all'] | default([]) }}"
+      haproxy_ssl: False # TBT - ssl for the repo is not working for us
+      haproxy_port: 8181
+      haproxy_balance_type: http
+      haproxy_backend_options:
+        - "httpchk HEAD /"
+  - service:
+      haproxy_service_name: glance_api
+      haproxy_backend_nodes: "{{ groups['glance_api'] | default([]) }}"
+      haproxy_ssl: "{{ haproxy_ssl }}"
+      haproxy_port: 9292
+      haproxy_balance_type: http
+      haproxy_backend_options:
+        - "httpchk /healthcheck"
+  - service:
+      haproxy_service_name: glance_registry
+      haproxy_backend_nodes: "{{ groups['glance_registry'] | default([]) }}"
+      haproxy_ssl: "{{ haproxy_ssl }}"
+      haproxy_port: 9191
+      haproxy_balance_type: http
+      haproxy_backend_options:
+        - "httpchk /healthcheck"
+      haproxy_whitelist_networks:
+        - 192.168.0.0/16
+        - 172.16.0.0/12
+        - 10.0.0.0/8
+  - service:
+      haproxy_service_name: keystone_service
+      haproxy_backend_nodes: "{{ groups['keystone_all'] | default([])  }}"
+      haproxy_port: 5000
+      haproxy_ssl: "{{ haproxy_ssl }}"
+      haproxy_balance_type: "http"
+      haproxy_backend_options:
+        - "httpchk HEAD /"
+  - service:
+      haproxy_service_name: keystone_admin
+      haproxy_backend_nodes: "{{ groups['keystone_all'] | default([])  }}"
+      haproxy_port: 35357
+      haproxy_balance_type: "http"
+      haproxy_backend_options:
+        - "httpchk HEAD /"
+      haproxy_whitelist_networks:
+        - 192.168.0.0/16
+        - 172.16.0.0/12
+        - 10.0.0.0/8
+  - service:
+      haproxy_service_name: neutron_server
+      haproxy_backend_nodes: "{{ groups['neutron_server'] | default([]) }}"
+      haproxy_port: 9696
+      haproxy_ssl: "{{ haproxy_ssl }}"
+      haproxy_balance_type: http
+      haproxy_backend_options:
+        - "httpchk HEAD /"
+  - service:
+      haproxy_service_name: nova_api_metadata
+      haproxy_backend_nodes: "{{ groups['nova_api_metadata'] | default([]) }}"
+      haproxy_port: 8775
+      haproxy_ssl: "{{ haproxy_ssl }}"
+      haproxy_balance_type: http
+      haproxy_backend_options:
+        - "httpchk HEAD /"
+      haproxy_whitelist_networks:
+        - 192.168.0.0/16
+        - 172.16.0.0/12
+        - 10.0.0.0/8
+  - service:
+      haproxy_service_name: nova_api_os_compute
+      haproxy_backend_nodes: "{{ groups['nova_api_os_compute'] | default([]) }}"
+      haproxy_ssl: "{{ haproxy_ssl }}"
+      haproxy_port: 8774
+      haproxy_balance_type: http
+      haproxy_backend_options:
+        - "httpchk HEAD /"
+  - service:
+      haproxy_service_name: nova_console
+      haproxy_backend_nodes: "{{ groups['nova_console'] | default([]) }}"
+      haproxy_ssl: "{{ haproxy_ssl }}"
+      haproxy_port: 6082
+      haproxy_balance_type: tcp
+      haproxy_timeout_client: 60m
+      haproxy_timeout_server: 60m
+      haproxy_balance_alg: source
+      haproxy_backend_options:
+        - tcp-check
+  - service:
+      haproxy_service_name: nova_console_novnc
+      haproxy_backend_nodes: "{{ groups['nova_console'] | default([]) }}"
+      haproxy_ssl: "{{ haproxy_ssl }}"
+      haproxy_port: 6080
+      haproxy_balance_type: tcp
+      haproxy_timeout_client: 60m
+      haproxy_timeout_server: 60m
+      haproxy_balance_alg: source
+      haproxy_backend_options:
+        - tcp-check
+  - service:
+      haproxy_service_name: horizon
+      haproxy_backend_nodes: "{{ groups['horizon_all'] | default([]) }}"
+      haproxy_ssl: "{{ haproxy_ssl }}"
+      haproxy_ssl_all_vips: true
+      haproxy_port: 443
+      haproxy_backend_port: 80
+      haproxy_redirect_http_port: 80
+      haproxy_balance_type: http
+      haproxy_balance_alg: source
+      haproxy_backend_options:
+        - "httpchk HEAD /"
+  - service:
+      haproxy_service_name: rabbitmq_mgmt
+      haproxy_backend_nodes: "{{ groups['rabbitmq'] | default([]) }}"
+      haproxy_ssl: "{{ haproxy_ssl }}"
+      haproxy_port: 15672
+      haproxy_balance_type: http
+      haproxy_backend_options:
+        - "httpchk HEAD /"
+      haproxy_whitelist_networks:
+        - 192.168.0.0/16
+        - 172.16.0.0/12
+        - 10.0.0.0/8
+
 # Needed to get the openvswitch kernel module loaded
 openstack_host_specific_kernel_modules:
   - { name: "openvswitch", pattern: "CONFIG_OPENVSWITCH=", group: "network_hosts" }
