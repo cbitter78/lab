@@ -140,7 +140,15 @@ openstack role add \
 cp openrc demo-openrc
 ```
 
-Edit `demo-openrc` to adjust username, project and password
+Edit `demo-openrc` to adjust username, project and password.
+You want to ensure you have the following content in the file:
+
+```shell
+export OS_USERNAME=demo
+export OS_PASSWORD=demo
+export OS_PROJECT_NAME=demo
+export OS_TENANT_NAME=demo
+```
 
 ```shell
 cd /root
