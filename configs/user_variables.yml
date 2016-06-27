@@ -6,6 +6,7 @@ pip_validate_certs: False
 
 # No need for SSL
 openstack_external_ssl: false
+openstack_service_publicuri_proto: http
 
 ### HAProxy specific config
 haproxy_ssl: false
