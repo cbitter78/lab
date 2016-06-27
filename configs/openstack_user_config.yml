@@ -73,8 +73,6 @@ network_hosts:
 compute_hosts:
   comp1.oslab:
     ip: 192.168.1.23
-  comp2.oslab:
-    ip: 192.168.1.24
 
 haproxy_hosts:
   man1.oslab:
