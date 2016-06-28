@@ -33,19 +33,10 @@ global_overrides:
           - neutron_openvswitch_agent
         container_bridge: "br-vlan"
         container_type: "veth"
-        container_interface: "eth11"
+        container_interface: "eth12"
         type: "vlan"
         range: "102:199"
         net_name: "vlan"
-    - network:
-        group_binds:
-          - neutron_openvswitch_agent
-        container_bridge: "br-vlan"
-        container_type: "veth"
-        container_interface: "eth12"
-        host_bind_override: "eth12"
-        type: "flat"
-        net_name: "flat"
 
 shared-infra_hosts:
   man1.oslab:
