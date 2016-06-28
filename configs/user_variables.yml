@@ -11,8 +11,6 @@ openstack_service_publicuri_proto: http
 ### HAProxy specific config
 haproxy_ssl: false
 haproxy_use_keepalived: false
-# haproxy_keepalived_internal_vip_cidr: 192.168.1.129/24
-# haproxy_keepalived_external_vip_cidr: 192.168.1.129/24
 
 # Needed to get the openvswitch kernel module loaded
 openstack_host_specific_kernel_modules:
@@ -22,30 +20,9 @@ openstack_host_specific_kernel_modules:
 
 neutron_plugin_type: ml2.ovs
 
-neutron_ml2_drivers_type: "flat,vlan"
-neutron_l2_population: "False"
+neutron_ml2_drivers_type: "vlan"
 
 neutron_provider_networks:
-  network_flat_networks: "*"
   network_types: "vlan"
   network_vlan_ranges: "physnet1:102:199"
   network_mappings: "physnet1:br-provider"
-
-neutron_plugins:
-  ml2.ovs:
-    driver_firewall: neutron.agent.linux.iptables_firewall.OVSHybridIptablesFirewallDriver
-    driver_interface: neutron.agent.linux.interface.OVSInterfaceDriver
-    drivers_type: "{{ neutron_ml2_drivers_type }}"
-    l2_population: "{{ neutron_l2_population }}"
-    mechanisms: "openvswitch"
-    plugin_conf_ini_overrides: "{{ neutron_ml2_conf_ini_overrides }}"
-    plugin_core: neutron.plugins.ml2.plugin.Ml2Plugin
-    plugin_ini: plugins/ml2/ml2_conf.ini
-
-# Need to have this until https://review.openstack.org/#/c/332957/ or similar changes
-# merge
-neutron_openvswitch_agent_ini_overrides:
-  agent:
-    tunnel_types: ""
-  ovs:
-    local_ip: ""
