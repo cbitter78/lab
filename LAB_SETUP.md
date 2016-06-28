@@ -132,6 +132,7 @@ openstack user create \
   --password demo demo
 
 openstack role create user
+
 openstack role add \
   --project demo \
   --user demo user
