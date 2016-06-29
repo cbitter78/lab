@@ -65,3 +65,6 @@
         dest: /etc/modules
         line: "{{ item }}"
       with_items: "{{ osa_target_host_kernel_modules }}"
+
+- include: bridge-config.yml
+- include: dns.yml

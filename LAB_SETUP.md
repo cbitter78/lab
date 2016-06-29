@@ -9,8 +9,6 @@ cd ~/openstack_lab
 ansible-galaxy install -r requirements.yml -p roles
 cd ~/openstack_lab/playbooks
 ansible-playbook target-host-prep.yml
-ansible-playbook bridge-config.yml
-ansible-playbook dns.yml
 
 # Use the configs from the lab repo for OSA
 cp ../configs/*.yml /etc/openstack_deploy/
