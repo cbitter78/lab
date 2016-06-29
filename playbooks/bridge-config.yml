@@ -14,13 +14,13 @@
   tasks:
     - name: Drop the /etc/network/interfaces config
       template:
-        src: interfaces.j2
+        src: "{{ playbook_dir }}/templates/interfaces.j2"
         dest: /etc/network/interfaces
         backup: Yes
 
     - name: Drop the /etc/network/interfaces.d/br-mgmt.cfg
       template:
-        src: br-mgmt.cfg.j2
+        src: "{{ playbook_dir }}/templates/br-mgmt.cfg.j2"
         dest: /etc/network/interfaces.d/br-mgmt.cfg
         backup: Yes
       notify:
@@ -28,7 +28,7 @@
 
     - name: Drop the /etc/network/interfaces.d/br-vlan.cfg
       template:
-        src: br-vlan.cfg.j2
+        src: "{{ playbook_dir }}/templates/br-vlan.cfg.j2"
         dest: /etc/network/interfaces.d/br-vlan.cfg
         backup: Yes
       notify:
