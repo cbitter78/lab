@@ -22,6 +22,14 @@ neutron_plugin_type: ml2.ovs
 
 neutron_ml2_drivers_type: "vlan"
 
+# Typically this would be defined by the os-neutron-install
+# playbook. The provider_networks library would parse the
+# provider_networks list in openstack_user_config.yml and
+# generate the values of network_types, network_vlan_ranges
+# and network_mappings. network_mappings would have a
+# different value for each host in the inventory based on
+# whether or not the host was metal (typically a compute host)
+# or a container (typically a neutron agent container)
 neutron_provider_networks:
   network_types: "vlan"
   network_vlan_ranges: "physnet1:102:199"
