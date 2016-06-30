@@ -12,8 +12,8 @@ used_ips:
   - 192.168.2.100 # eth0 on 1st lab host
 
 global_overrides:
-  internal_lb_vip_address: 192.168.1.20 #192.168.1.129
-  external_lb_vip_address: 192.168.1.20 #192.168.1.129
+  internal_lb_vip_address: 192.168.1.21 #192.168.1.129
+  external_lb_vip_address: 192.168.1.21 #192.168.1.129
   management_bridge: "br-mgmt"
 
   provider_networks:
@@ -39,36 +39,36 @@ global_overrides:
         net_name: "physnet1"
 
 shared-infra_hosts:
-  man1.oslab:
-    ip: 192.168.1.20
+  man2.oslab:
+    ip: 192.168.1.21
 
 repo-infra_hosts:
-  man1.oslab:
-    ip: 192.168.1.20
+  man2.oslab:
+    ip: 192.168.1.21
 
 os-infra_hosts:
-  man1.oslab:
+  man2.oslab:
     affinity:
       heat_apis_container: 0
       heat_engine_container: 0
-    ip: 192.168.1.20
+    ip: 192.168.1.21
 
 identity_hosts:
-  man1.oslab:
-    ip: 192.168.1.20
+  man2.oslab:
+    ip: 192.168.1.21
 
 network_hosts:
-  man1.oslab:
-    ip: 192.168.1.20
+  man2.oslab:
+    ip: 192.168.1.21
 
 compute_hosts:
   comp1.oslab:
     ip: 192.168.1.23
 
 haproxy_hosts:
-  man1.oslab:
-    ip: 192.168.1.20
+  man2.oslab:
+    ip: 192.168.1.21
 
 log_hosts:
-  man1.oslab:
-    ip: 192.168.1.20
+  man2.oslab:
+    ip: 192.168.1.21
