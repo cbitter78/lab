@@ -25,12 +25,14 @@ rm /etc/openstack_deploy/backup_openstack_inventory.tar
 
 ```
 
+See [DVR_PATCH](DVR_PATCH.md) if you need to patch OSA
+
 As the `lab` user
 
 ```shell
 
 # Copy custom playbooks into ansible playbook folder
-cp ~/custom_plays/* /opt/openstack-ansible/playbooks/
+cp ~/openstack_lab/playbooks/custom_plays/* /opt/openstack-ansible/playbooks/
 
 cd ~/openstack_lab
 ansible-galaxy install -r requirements.yml -p roles
@@ -52,29 +54,7 @@ From the jumpbox as the `lab` user.
 ```shell
 # Run the OSA playbooks that apply to us
 cd /opt/openstack-ansible/playbooks
-
-# Get our hosts and containers ready
-openstack-ansible setup-hosts.yml
-openstack-ansible setup-infrastructure.yml
-
-# Install a limited set of OpenStack services
-openstack-ansible os-keystone-install.yml
-openstack-ansible os-glance-install.yml
-openstack-ansible os-nova-install.yml
-
-# I saw issues with losing connectivity to the neutron server containers
-# during the first run, However re-running the playbook got it to complete.
-openstack-ansible os-neutron-install.yml
-
-# Horizon is definitely optional
-openstack-ansible os-horizon-install.yml
-```
-
-## OpenVSwitch playbook
-
-```shell
-cd /opt/openstack-ansible/playbooks
-openstack-ansible ovs-setup.yml
+openstack-ansible setup-lab.yml 
 
 ```
 
