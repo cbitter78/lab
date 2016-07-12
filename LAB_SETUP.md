@@ -14,7 +14,8 @@ mv /opt/openstack-ansible /opt/openstack-ansible_`date +%Y-%m-%d`
 git clone -b master https://github.com/openstack/openstack-ansible.git /opt/openstack-ansible
 cd /opt/openstack-ansible/scripts/
 scripts/bootstrap-ansible.sh
-chown lab:lab /opt/openstack-ansible
+chown -R lab:lab /opt/openstack-ansible
+chown -R lab:lab /etc/ansible
 
 
 # Blow away any old inventory files and facts
