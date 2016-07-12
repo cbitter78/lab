@@ -33,36 +33,58 @@ global_overrides:
         net_name: "physnet1"
 
 shared-infra_hosts:
+  man1.oslab:
+    ip: 192.168.1.20
   man2.oslab:
     ip: 192.168.1.21
+  man3.oslab:
+    ip: 192.168.1.22
 
 repo-infra_hosts:
   man2.oslab:
     ip: 192.168.1.21
 
 os-infra_hosts:
+  man1.oslab:
+    affinity:
+      heat_apis_container: 0
+      heat_engine_container: 0
+    ip: 192.168.1.20
   man2.oslab:
     affinity:
       heat_apis_container: 0
       heat_engine_container: 0
     ip: 192.168.1.21
+  man3.oslab:
+    affinity:
+      heat_apis_container: 0
+      heat_engine_container: 0
+    ip: 192.168.1.22
 
 identity_hosts:
+  man1.oslab:
+    ip: 192.168.1.20
   man2.oslab:
     ip: 192.168.1.21
+  man3.oslab:
+    ip: 192.168.1.22
 
 network_hosts:
+  man1.oslab:
+    ip: 192.168.1.20
   man2.oslab:
     ip: 192.168.1.21
 
 compute_hosts:
   comp1.oslab:
     ip: 192.168.1.23
+  comp2.oslab:
+    ip: 192.168.1.24
 
 haproxy_hosts:
   man2.oslab:
     ip: 192.168.1.21
 
 log_hosts:
-  man2.oslab:
-    ip: 192.168.1.21
+  man3.oslab:
+    ip: 192.168.1.22

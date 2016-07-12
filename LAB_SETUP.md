@@ -2,9 +2,36 @@
 
 ## Basic Host Setup
 
-From the jumpbox as the `lab` user.
+From the jumpbox 
+
+### Remove a older openstack-ansible config 
+
+As root
 
 ```shell
+
+mv /opt/openstack-ansible /opt/openstack-ansible_`date +%Y-%m-%d`
+git clone -b master https://github.com/openstack/openstack-ansible.git /opt/openstack-ansible
+cd /opt/openstack-ansible/scripts/
+scripts/bootstrap-ansible.sh
+chown lab:lab /opt/openstack-ansible
+
+
+# Blow away any old inventory files and facts
+rm -rf /etc/openstack_deploy/ansible_facts/*
+rm /etc/openstack_deploy/openstack_inventory.json
+rm /etc/openstack_deploy/openstack_hostnames_ips.yml
+rm /etc/openstack_deploy/backup_openstack_inventory.tar
+
+```
+
+As the `lab` user
+
+```shell
+
+# Copy custom playbooks into ansible playbook folder
+cp ~/custom_plays/* /opt/openstack-ansible/playbooks/
+
 cd ~/openstack_lab
 ansible-galaxy install -r requirements.yml -p roles
 cd ~/openstack_lab/playbooks
@@ -12,12 +39,6 @@ ansible-playbook target-host-prep.yml
 
 # Use the configs from the lab repo for OSA
 cp ../configs/*.yml /etc/openstack_deploy/
-
-# Blow away any old inventory files and facts
-rm -rf /etc/openstack_deploy/ansible_facts/*
-rm /etc/openstack_deploy/openstack_inventory.json
-rm /etc/openstack_deploy/openstack_hostnames_ips.yml
-rm /etc/openstack_deploy/backup_openstack_inventory.tar
 
 # Generate the secrets config file
 cd /opt/openstack-ansible/scripts
@@ -49,37 +70,14 @@ openstack-ansible os-neutron-install.yml
 openstack-ansible os-horizon-install.yml
 ```
 
-## OpenVSwitch Manual work
-
-### Neutron Agents
-
-On each `neutron-agents-container` as `root` user.
+## OpenVSwitch playbook
 
 ```shell
-# Setup the OVS bridge to our provider network
-# eth12 is the container interface linked to the
-# br-vlan on the physical host
-ovs-vsctl add-br br-provider
-ovs-vsctl add-port br-provider eth12
+cd /opt/openstack-ansible/playbooks
+openstack-ansible ovs-setup.yml
 
-# Bounce the agent
-service neutron-openvswitch-agent restart
 ```
 
-### Compute hosts
-
-On each compute host as `root` user.
-
-```shell
-# Setup the OVS bridge to our provider network
-# eth0 is the physical host network interface
-# that will provide link to the provider network VLAN
-ovs-vsctl add-br br-provider
-ovs-vsctl add-port br-provider br-vlan
-
-# Bounce the agent
-service neutron-openvswitch-agent restart
-```
 
 ## OpenStack bootstrapping
 
