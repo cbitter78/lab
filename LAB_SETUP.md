@@ -40,7 +40,7 @@ cd ~/openstack_lab/playbooks
 ansible-playbook target-host-prep.yml
 
 # Use the configs from the lab repo for OSA
-cp ../configs/*.yml /etc/openstack_deploy/
+cp ~/openstack_lab/configs/*.yml /etc/openstack_deploy/
 
 # Generate the secrets config file
 cd /opt/openstack-ansible/scripts
