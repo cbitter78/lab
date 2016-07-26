@@ -2,9 +2,9 @@
 
 ## Basic Host Setup
 
-From the jumpbox 
+From the jumpbox
 
-### Remove a older openstack-ansible config 
+### Remove a older openstack-ansible config
 
 As root
 
@@ -12,7 +12,7 @@ As root
 
 mv /opt/openstack-ansible /opt/openstack-ansible_`date +%Y-%m-%d`
 git clone -b master https://github.com/openstack/openstack-ansible.git /opt/openstack-ansible
-cd /opt/openstack-ansible/scripts/
+cd /opt/openstack-ansible
 scripts/bootstrap-ansible.sh
 chown -R lab:lab /opt/openstack-ansible
 chown -R lab:lab /etc/ansible
@@ -55,7 +55,7 @@ From the jumpbox as the `lab` user.
 ```shell
 # Run the OSA playbooks that apply to us
 cd /opt/openstack-ansible/playbooks
-openstack-ansible setup-lab.yml 
+openstack-ansible setup-lab.yml
 
 ```
 
