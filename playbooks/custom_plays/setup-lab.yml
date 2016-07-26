@@ -7,4 +7,5 @@
 - include: os-glance-install.yml
 - include: os-nova-install.yml
 - include: os-neutron-install.yml
+- include: os-heat-install.yml
 - include: ovs-setup.yml
