@@ -25,6 +25,12 @@ utility_apt_packages:
 
 neutron_plugin_type: ml2.ovs.dvr
 
+# Need to add QOS/DSCP marks
+neutron_plugin_base:
+  - router
+  - metering
+  - qos
+
 neutron_ml2_drivers_type: "flat,vlan"
 
 # Typically this would be defined by the os-neutron-install
