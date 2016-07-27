@@ -16,6 +16,11 @@ haproxy_use_keepalived: false
 openstack_host_specific_kernel_modules:
   - { name: "openvswitch", pattern: "CONFIG_OPENVSWITCH=", group: "network_hosts" }
 
+# We use wget, so install it
+utility_apt_packages:
+  - git
+  - wget
+
 ### Neutron specific config
 
 neutron_plugin_type: ml2.ovs.dvr
