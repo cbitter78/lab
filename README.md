@@ -181,8 +181,27 @@ curl -X POST "http://192.168.1.1:8080/pxe?spoof=192.168.1.20
 ```
 After you have run this script you will see a file prefixed with C0A8011 in /home/lab/pxelinux.cfg folder.   Jsut reboot the host and it will rebuld.
 
-#### PXEMonster
+#### Kernel Images
 
+Thanks to Sean and his post http://coreitpro.com/2015/11/11/devstack-home-lab-pt1.html I got the Ubuntu mini kernel(s) from here: 
+
+For 14.04
+```shell
+mkdir ubuntu_14_04
+cd ubuntu
+wget http://archive.ubuntu.com/ubuntu/dists/trusty-updates/main/installer-amd64/current/images/netboot/ubuntu-installer/amd64/linux
+wget http://archive.ubuntu.com/ubuntu/dists/trusty-updates/main/installer-amd64/current/images/netboot/ubuntu-installer/amd64/initrd.gz
+```
+
+For 16.04
+```shell
+mkdir ubuntu_16_04
+cd ubuntu
+wget http://archive.ubuntu.com/ubuntu/dists/vivid/main/installer-amd64/current/images/netboot/ubuntu-installer/amd64/linux
+wget http://archive.ubuntu.com/ubuntu/dists/vivid/main/installer-amd64/current/images/netboot/ubuntu-installer/amd64/initrd.gz
+```
+
+#### PXEMonster
 
 PXE Monister is a docker container.  To see if its running you can 
 
@@ -198,6 +217,10 @@ service docker restart
 docker run -ti -d -p 192.168.1.1:8080:80 -v /var/lib/tftpboot/pxelinux.cfg:/pxelinux.cfg cbitter78/pxemonister:0.0.3-0
 
 ```
+
+
+
+
 
 This is the /var/lib/tftpboot/pxemonster.yml file
 
