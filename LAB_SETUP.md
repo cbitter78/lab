@@ -13,7 +13,7 @@ As root
 mv /opt/openstack-ansible /opt/openstack-ansible_`date +%Y-%m-%d`
 git clone -b master https://github.com/openstack/openstack-ansible.git /opt/openstack-ansible
 cd /opt/openstack-ansible
-scripts/bootstrap-ansible.sh
+ANSIBLE_ROLE_FETCH_MODE=git-clone scripts/bootstrap-ansible.sh
 chown -R lab:lab /opt/openstack-ansible
 chown -R lab:lab /etc/ansible
 
@@ -25,8 +25,6 @@ rm /etc/openstack_deploy/openstack_hostnames_ips.yml
 rm /etc/openstack_deploy/backup_openstack_inventory.tar
 
 ```
-
-See [DVR_PATCH](DVR_PATCH.md) if you need to patch OSA
 
 As the `lab` user
 
