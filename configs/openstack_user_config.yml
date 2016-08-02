@@ -89,3 +89,13 @@ haproxy_hosts:
 log_hosts:
   man3.oslab:
     ip: 192.168.1.22
+
+# These hosts will provide the physical infrastructure for
+# LXC containers that will run the telemetry RabbitMQ cluster
+telemetry-infra_hosts:
+  man1.oslab:
+    ip: 192.168.1.20
+  man2.oslab:
+    ip: 192.168.1.21
+  man3.oslab:
+    ip: 192.168.1.22
