@@ -54,6 +54,7 @@
         password: "{{ ceilometer_container_db_password }}"
         roles: 'root'
         state: present
+      ignore_errors: True
 
     - name: Add ceilometer database user
       mongodb_user:
@@ -70,3 +71,5 @@
       - mongodb-clients
       - mongodb-server
       - python-pymongo
+    ceilometer_database_name: ceilometer
+    ceilometer_database_user: ceilometer
