@@ -51,3 +51,19 @@ neutron_provider_networks:
 neutron_rabbitmq_telemetry_host_group: "telemetry_rabbitmq_all"
 neutron_rabbitmq_telemetry_password: "{{ neutron_rabbitmq_password }}"
 neutron_rabbitmq_telemetry_servers: "{% for host in groups[neutron_rabbitmq_telemetry_host_group] %}{{ hostvars[host]['ansible_ssh_host'] }}{% if not loop.last %},{% endif %}{% endfor %}"
+
+## Glance config
+glance_rabbitmq_telemetry_host_group: "telemetry_rabbitmq_all"
+glance_rabbitmq_telemetry_password: "{{ glance_rabbitmq_password }}"
+glance_rabbitmq_telemetry_servers: "{% for host in groups[glance_rabbitmq_telemetry_host_group] %}{{ hostvars[host]['ansible_ssh_host'] }}{% if not loop.last %},{% endif %}{% endfor %}"
+
+## Nova config
+nova_rabbitmq_telemetry_host_group: "telemetry_rabbitmq_all"
+nova_rabbitmq_telemetry_password: "{{ nova_rabbitmq_password }}"
+nova_rabbitmq_telemetry_servers: "{% for host in groups[nova_rabbitmq_telemetry_host_group] %}{{ hostvars[host]['ansible_ssh_host'] }}{% if not loop.last %},{% endif %}{% endfor %}"
+
+## Keystone config
+keystone_rabbitmq_telemetry_host_group: "telemetry_rabbitmq_all"
+keystone_rabbitmq_telemetry_password: "{{ keystone_rabbitmq_password }}"
+keystone_rabbitmq_telemetry_servers: "{% for host in groups[keystone_rabbitmq_telemetry_host_group] %}{{ hostvars[host]['ansible_ssh_host'] }}{% if not loop.last %},{% endif %}{% endfor %}"
+
