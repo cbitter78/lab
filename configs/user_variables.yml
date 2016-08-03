@@ -46,3 +46,8 @@ neutron_provider_networks:
   network_types: "vlan"
   network_vlan_ranges: "physnet1:102:199"
   network_mappings: "physnet1:br-provider"
+
+# Neutron telemetry events should go to the telemetry cluster
+neutron_rabbitmq_telemetry_host_group: "telemetry_rabbitmq_all"
+neutron_rabbitmq_telemetry_password: "{{ neutron_rabbitmq_password }}"
+neutron_rabbitmq_telemetry_servers: "{% for host in groups[neutron_rabbitmq_telemetry_host_group] %}{{ hostvars[host]['ansible_ssh_host'] }}{% if not loop.last %},{% endif %}{% endfor %}"
