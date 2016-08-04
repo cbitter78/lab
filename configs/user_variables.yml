@@ -1,3 +1,5 @@
+rabbitmq_telemetry_host_group: "telemetry_rabbitmq_all"
+
 apply_security_hardening: false
 
 lxc_container_ssh_key: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDMbl/20hYXBM5VsCU01zv4rc7coO8D5xE56j/GqTv/VJ+iEJrulU/it50SE08j80F++M2ARWN90X8q8I6J7AaIh3q4qZXK2qR3mTt8gD950Kst28x4UyM2XdkCR2T3315d250JQyR6hh8Z8Xzdqn1y/upUeWEdyUCevTl1mPi1XUKbB0qYoByn2MXWryw9hWwqqASE0ScRMKETIpQxw9VG7KbaImWMosYSJRZ2a10mNcrVWDbechO1YNYsLcdylXeD4zfkhK0Fq3VLUoGOrPDrlKW45A9u1b9G/CPgzmno5YFKrXBcCs/p6DYzhkGt+h2u4OUZtYhEY0/OJuCaQw5L lab@charles_lab"
@@ -48,22 +50,27 @@ neutron_provider_networks:
   network_mappings: "physnet1:br-provider"
 
 # Neutron telemetry events should go to the telemetry cluster
-neutron_rabbitmq_telemetry_host_group: "telemetry_rabbitmq_all"
+neutron_rabbitmq_telemetry_host_group: "{{ rabbitmq_telemetry_host_group }}"
 neutron_rabbitmq_telemetry_password: "{{ neutron_rabbitmq_password }}"
 neutron_rabbitmq_telemetry_servers: "{% for host in groups[neutron_rabbitmq_telemetry_host_group] %}{{ hostvars[host]['ansible_ssh_host'] }}{% if not loop.last %},{% endif %}{% endfor %}"
 
 ## Glance config
-glance_rabbitmq_telemetry_host_group: "telemetry_rabbitmq_all"
+glance_rabbitmq_telemetry_host_group: "{{ rabbitmq_telemetry_host_group }}"
 glance_rabbitmq_telemetry_password: "{{ glance_rabbitmq_password }}"
 glance_rabbitmq_telemetry_servers: "{% for host in groups[glance_rabbitmq_telemetry_host_group] %}{{ hostvars[host]['ansible_ssh_host'] }}{% if not loop.last %},{% endif %}{% endfor %}"
 
 ## Nova config
-nova_rabbitmq_telemetry_host_group: "telemetry_rabbitmq_all"
+nova_rabbitmq_telemetry_host_group: "{{ rabbitmq_telemetry_host_group }}"
 nova_rabbitmq_telemetry_password: "{{ nova_rabbitmq_password }}"
 nova_rabbitmq_telemetry_servers: "{% for host in groups[nova_rabbitmq_telemetry_host_group] %}{{ hostvars[host]['ansible_ssh_host'] }}{% if not loop.last %},{% endif %}{% endfor %}"
 
 ## Keystone config
-keystone_rabbitmq_telemetry_host_group: "telemetry_rabbitmq_all"
+keystone_rabbitmq_telemetry_host_group: "{{ rabbitmq_telemetry_host_group }}"
 keystone_rabbitmq_telemetry_password: "{{ keystone_rabbitmq_password }}"
 keystone_rabbitmq_telemetry_servers: "{% for host in groups[keystone_rabbitmq_telemetry_host_group] %}{{ hostvars[host]['ansible_ssh_host'] }}{% if not loop.last %},{% endif %}{% endfor %}"
+
+## Ceilometer config
+
+# Ceilometer should use the telemetry RabbitMQ cluster exclusively
+ceilometer_rabbitmq_host_group: "{{ rabbitmq_telemetry_host_group }}"
 
