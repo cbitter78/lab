@@ -8,4 +8,5 @@
 - include: os-nova-install.yml
 - include: os-neutron-install.yml
 - include: os-heat-install.yml
+- include: os-ceilometer-install.yml
 - include: ovs-setup.yml
