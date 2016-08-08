@@ -51,12 +51,19 @@ python pw-token-gen.py --file /etc/openstack_deploy/user_secrets.yml
 From the jumpbox as the `lab` user.
 
 ```shell
-# Run the OSA playbooks that apply to us
 cd /opt/openstack-ansible/playbooks
-openstack-ansible setup-lab.yml
-
+openstack-ansible setup-hosts.yml
+openstack-ansible setup-infrastructure.yml
+# create the telemetry-specific RabbitMQ cluster
+openstack-ansible -e "rabbitmq_host_group=telemetry_rabbitmq_all" rabbitmq-install.yml
+openstack-ansible os-keystone-install.yml
+openstack-ansible os-glance-install.yml
+openstack-ansible os-nova-install.yml
+openstack-ansible os-neutron-install.yml
+openstack-ansible os-heat-install.yml
+openstack-ansible os-ceilometer-install.yml
+openstack-ansible ovs-setup.yml
 ```
-
 
 ## OpenStack bootstrapping
 
