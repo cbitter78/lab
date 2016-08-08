@@ -73,4 +73,5 @@ keystone_rabbitmq_telemetry_servers: "{% for host in groups[keystone_rabbitmq_te
 
 # Ceilometer should use the telemetry RabbitMQ cluster exclusively
 ceilometer_rabbitmq_host_group: "{{ rabbitmq_telemetry_host_group }}"
+ceilometer_rabbitmq_servers: "{% for host in groups[ceilometer_rabbitmq_host_group] %}{{ hostvars[host]['ansible_ssh_host'] }}{% if not loop.last %},{% endif %}{% endfor %}"
 
