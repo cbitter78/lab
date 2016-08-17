@@ -23,6 +23,7 @@ rm -rf /etc/openstack_deploy/ansible_facts/*
 rm /etc/openstack_deploy/openstack_inventory.json
 rm /etc/openstack_deploy/openstack_hostnames_ips.yml
 rm /etc/openstack_deploy/backup_openstack_inventory.tar
+rm -rf /etc/openstack_deploy/env.d/*
 
 ```
 
@@ -39,7 +40,8 @@ cd ~/openstack_lab/playbooks
 ansible-playbook target-host-prep.yml
 
 # Use the configs from the lab repo for OSA
-cp ~/openstack_lab/configs/*.yml /etc/openstack_deploy/
+cp ~/openstack_lab/etc/openstack_deploy/*.yml /etc/openstack_deploy/
+cp ~/openstack_lab/etc/openstack_deploy/env.d/*.yml /etc/openstack_deploy/env.d/
 
 # Generate the secrets config file
 cd /opt/openstack-ansible/scripts
@@ -61,6 +63,7 @@ openstack-ansible os-glance-install.yml
 openstack-ansible os-nova-install.yml
 openstack-ansible os-neutron-install.yml
 openstack-ansible os-heat-install.yml
+openstack-ansible mongodb-install.yml
 openstack-ansible os-ceilometer-install.yml
 openstack-ansible ovs-setup.yml
 ```
