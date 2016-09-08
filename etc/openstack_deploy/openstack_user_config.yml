@@ -6,8 +6,8 @@ used_ips:
   - "192.168.1.0,192.168.1.24" # lab metal hosts
 
 global_overrides:
-  internal_lb_vip_address: 192.168.1.21 #192.168.1.129
-  external_lb_vip_address: 192.168.1.21 #192.168.1.129
+  internal_lb_vip_address: 192.168.1.20 #192.168.1.129
+  external_lb_vip_address: 192.168.1.20 #192.168.1.129
   management_bridge: "br-mgmt"
 
   provider_networks:
@@ -35,67 +35,50 @@ global_overrides:
 shared-infra_hosts:
   man1.oslab:
     ip: 192.168.1.20
-  man2.oslab:
-    ip: 192.168.1.21
-  man3.oslab:
-    ip: 192.168.1.22
 
 repo-infra_hosts:
-  man2.oslab:
-    ip: 192.168.1.21
+  man1.oslab:
+    ip: 192.168.1.20
 
 os-infra_hosts:
   man1.oslab:
     ip: 192.168.1.20
-  man2.oslab:
-    ip: 192.168.1.21
-  man3.oslab:
-    ip: 192.168.1.22
 
 identity_hosts:
   man1.oslab:
     ip: 192.168.1.20
-  man2.oslab:
-    ip: 192.168.1.21
-  man3.oslab:
-    ip: 192.168.1.22
 
 network_hosts:
   man1.oslab:
     ip: 192.168.1.20
-  man2.oslab:
-    ip: 192.168.1.21
 
 compute_hosts:
   comp1.oslab:
-    ip: 192.168.1.23
+    ip: 192.168.1.21
   comp2.oslab:
-    ip: 192.168.1.24
+    ip: 192.168.1.22
 
 metering-compute_hosts:
   comp1.oslab:
-    ip: 192.168.1.23
+    ip: 192.168.1.21
   comp2.oslab:
-    ip: 192.168.1.24
+    ip: 192.168.1.22
 
 metering-infra_hosts:
   man1.oslab:
     ip: 192.168.1.20
 
 haproxy_hosts:
-  man2.oslab:
-    ip: 192.168.1.21
+  man1.oslab:
+    ip: 192.168.1.20
 
 log_hosts:
-  man3.oslab:
-    ip: 192.168.1.22
+  man1.oslab:
+    ip: 192.168.1.20
 
 # These hosts will provide the physical infrastructure for
 # LXC containers that will run the telemetry RabbitMQ cluster
 telemetry-infra_hosts:
   man1.oslab:
     ip: 192.168.1.20
-  man2.oslab:
-    ip: 192.168.1.21
-  man3.oslab:
-    ip: 192.168.1.22
+
