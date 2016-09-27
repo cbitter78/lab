@@ -49,32 +49,26 @@ neutron_provider_networks:
   network_vlan_ranges: "physnet1:102:199"
   network_mappings: "physnet1:br-provider"
 
-# Neutron telemetry events should go to the telemetry cluster
-neutron_rabbitmq_telemetry_host_group: "{{ rabbitmq_telemetry_host_group }}"
-neutron_rabbitmq_telemetry_password: "{{ neutron_rabbitmq_password }}"
-neutron_rabbitmq_telemetry_servers: "{% for host in groups[neutron_rabbitmq_telemetry_host_group] %}{{ hostvars[host]['ansible_ssh_host'] }}{% if not loop.last %},{% endif %}{% endfor %}"
+# Glance config
+glance_default_store: rbd
 
-## Glance config
-glance_rabbitmq_telemetry_host_group: "{{ rabbitmq_telemetry_host_group }}"
-glance_rabbitmq_telemetry_password: "{{ glance_rabbitmq_password }}"
-glance_rabbitmq_telemetry_servers: "{% for host in groups[glance_rabbitmq_telemetry_host_group] %}{{ hostvars[host]['ansible_ssh_host'] }}{% if not loop.last %},{% endif %}{% endfor %}"
+## Ceph pool name for Glance to use
+glance_rbd_store_pool: glance
+glance_rbd_store_chunk_size: 8
 
-## Nova config
-nova_rabbitmq_telemetry_host_group: "{{ rabbitmq_telemetry_host_group }}"
-nova_rabbitmq_telemetry_password: "{{ nova_rabbitmq_password }}"
-nova_rabbitmq_telemetry_servers: "{% for host in groups[nova_rabbitmq_telemetry_host_group] %}{{ hostvars[host]['ansible_ssh_host'] }}{% if not loop.last %},{% endif %}{% endfor %}"
+# Ceph
+ceph_mons:
+  - 192.168.1.23
+  - 192.168.1.24
 
-## Keystone config
-keystone_rabbitmq_telemetry_host_group: "{{ rabbitmq_telemetry_host_group }}"
-keystone_rabbitmq_telemetry_password: "{{ keystone_rabbitmq_password }}"
-keystone_rabbitmq_telemetry_servers: "{% for host in groups[keystone_rabbitmq_telemetry_host_group] %}{{ hostvars[host]['ansible_ssh_host'] }}{% if not loop.last %},{% endif %}{% endfor %}"
-
-## Ceilometer config
-
-# Ceilometer should use the telemetry RabbitMQ cluster exclusively
-ceilometer_rabbitmq_host_group: "{{ rabbitmq_telemetry_host_group }}"
-ceilometer_rabbitmq_servers: "{% for host in groups[ceilometer_rabbitmq_host_group] %}{{ hostvars[host]['ansible_ssh_host'] }}{% if not loop.last %},{% endif %}{% endfor %}"
+# Telemetry config
 
 # We install MongoDB on man1.oslab
 ceilometer_db_ip: 192.168.1.20
+
+cinder_ceilometer_enabled: True
+glance_ceilometer_enabled: True
+nova_ceilometer_enabled: True
+neutron_ceilometer_enabled: True
+keystone_ceilometer_enabled: True
 
