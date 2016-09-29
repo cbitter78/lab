@@ -58,6 +58,12 @@ compute_hosts:
   comp2.oslab:
     ip: 192.168.1.22
 
+# The cinder-api service gets deployed here
+storage-infra_hosts:
+  man1.oslab:
+    ip: 192.168.1.20
+
+# The cinder-volume service gets deployed
 storage_hosts:
   man1.oslab:
     ip: 192.168.1.20
