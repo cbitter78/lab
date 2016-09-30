@@ -70,91 +70,11 @@ openstack-ansible ovs-setup.yml
 
 ## OpenStack bootstrapping
 
-On any `utility-container` as `root` user.
-
-### Network setup
+The playbook below is not idempotent, so only run it once.
 
 ```shell
-cd /root
-source openrc
-
-# Create the provider network
-neutron net-create physnet1 --shared \
-  --provider:physical_network physnet1 \
-  --provider:network_type vlan \
-  --provider:segmentation_id 101
-
-# Create the subnet for the provider net
-neutron subnet-create physnet1 192.168.2.0/24 \
-  --name physnet-subnet \
-  --gateway 192.168.2.1
-```
-
-### OpenStack setup for testing
-
-```shell
-cd /root
-source openrc
-
-# Create a nano flavor so we don't tax the lab resources
-openstack flavor create --id 0 --vcpus 1 --ram 64 --disk 1 m1.nano
-
-# Create a demo tenant/project
-openstack project create \
-  --domain default \
-  --description "Demo Project" demo
-
-openstack user create \
-  --domain default \
-  --password demo demo
-
-openstack role create user
-
-openstack role add \
-  --project demo \
-  --user demo user
-
-# Create an openrc for our demo tenant
-cp openrc demo-openrc
-```
-
-Edit `demo-openrc` to adjust username, project and password.
-You want to ensure you have the following content in the file:
-
-```shell
-export OS_USERNAME=demo
-export OS_PASSWORD=demo
-export OS_PROJECT_NAME=demo
-export OS_TENANT_NAME=demo
-```
-
-```shell
-cd /root
-# Create an ssh key for the demo tenancy
-ssh-keygen -q -N ""
-
-# Add the key to the demo tenancy
-source demo-openrc
-openstack keypair create --public-key ~/.ssh/id_rsa.pub mykey
-
-# Give ourselves some access to instances in the demo tenancy
-openstack security group rule create \
-  --proto icmp default
-openstack security group rule create \
-  --proto tcp --dst-port 22 default
-
-# Grab the cirros image
-wget http://download.cirros-cloud.net/0.3.4/cirros-0.3.4-x86_64-disk.img
-
-# we need to be admin to upload the image
-source openrc
-
-# Upload the cirros image to Glance
-openstack image create "cirros" \
-  --file cirros-0.3.4-x86_64-disk.img \
-  --disk-format qcow2 \
-  --container-format bare \
-  --public
+cd /opt/openstack-ansible/playbooks
+openstack-ansible bootstrap_region.yml -vvv
 ```
 
 ## Test an instance launch
