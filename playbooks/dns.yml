@@ -1,5 +1,0 @@
----
-- hosts: lab
-  user: root
-  roles:
-    - { role: ../roles/jdauphant.dns }
