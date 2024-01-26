@@ -1,6 +1,6 @@
 giagbyte:
   vars:
-    ansible_user: cbitter
+    ansible_user: ansible
   hosts:
     giga1.local:
     giga2.local:
