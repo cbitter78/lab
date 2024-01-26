@@ -1,5 +1,11 @@
 {
     "cSpell.words": [
-        "Netgear"
+        "bootable",
+        "liblz",
+        "livefs",
+        "Netgear",
+        "squashfs",
+        "UEFI",
+        "xorriso"
     ]
 }

@@ -1,0 +1,9 @@
+giagbyte:
+  vars:
+    ansible_user: cbitter
+  hosts:
+    giga1.local:
+    giga2.local:
+    giga3.local:
+    giga4.local:
+    giga5.local:
