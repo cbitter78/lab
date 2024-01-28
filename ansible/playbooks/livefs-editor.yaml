@@ -1,0 +1,48 @@
+---
+- name: livefs-editor
+  hosts: "{{ target }}"
+  become: yes
+  become_user: root
+  become_method: sudo
+  tasks:
+    
+    - name: install packages needed by livefs-editor
+      ansible.builtin.apt:
+        name: "{{ item }}"
+        state: latest
+        update_cache: 'yes'
+      loop:
+        - xorriso
+        - squashfs-tools 
+        - python3-debian 
+        - gpg 
+        - liblz4-tool 
+        - python3-pip 
+
+    - name: Install livefs-editor
+      ansible.builtin.pip:
+        name: git+https://github.com/mwhudson/livefs-editor
+
+    - name: Create folders we need
+      ansible.builtin.file:
+        path: "{{ item }}"
+        state: directory
+        mode: '0755'
+      loop:
+        - /opt/iso
+
+    - name: Download ubuntu-22.04.3-live-server-amd64.iso from https://releases.ubuntu.com/22.04/
+      ansible.builtin.get_url:
+        url: https://releases.ubuntu.com/22.04.3/ubuntu-22.04.3-live-server-amd64.iso
+        dest: /opt/iso/ubuntu-22.04.3-live-server-amd64.iso
+        checksum: sha256:a4acfda10b18da50e2ec50ccaf860d7f20b389df8765611142305c0e911d16fd
+        timeout: 1500
+        tmp_dest: /opt/iso/
+
+    - name: Set up for livefs and create ISO files
+      include_tasks: tasks/make_iso_files.yaml 
+      vars:
+        machine_id: "{{ item.machine_id }}"
+        boot_server_ip: "{{ hostvars[inventory_hostname].boot_server_ip }}"
+      with_items:
+        - "{{ hostvars[inventory_hostname]['boot_server_configs'] }}"

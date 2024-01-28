@@ -1,8 +1,0 @@
-# OpenStack Networking VLAN bridge
-auto br-vlan
-iface br-vlan inet manual
-  bridge_stp off
-  bridge_waitport 0
-  bridge_fd 0
-  # Bridge port references untagged interface
-  bridge_ports {{ bridge_vlan_interface }}

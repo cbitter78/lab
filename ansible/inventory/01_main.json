@@ -1,0 +1,7 @@
+{
+  "boot_server": {
+    "hosts": {
+      "giga1.local": {}
+    }
+  }
+}

@@ -1,0 +1,33 @@
+---
+- name: "Create apache2 web folder machine: {{ machine_id }} user-data files"
+
+  ansible.builtin.file:
+    path: "/var/www/html/{{ machine_id }}/"
+    state: directory
+    mode: '0755'
+  
+- name: "Add the user-data"
+  ansible.builtin.template:
+    src: templates/user-data.j2
+    dest: "/var/www/html/{{ machine_id }}/user-data"
+  vars:
+    machine_id: "{{ machine_id }}"
+    efi_eject_pattern: ""
+    driver_serial_match: ""
+
+- name: "Add the meta-data"
+  ansible.builtin.template:
+    src: templates/meta-data.j2
+    dest: "/var/www/html/{{ machine_id }}/meta-data"
+  vars:
+    machine_id: "{{ machine_id }}"
+
+- name: "Add the vendor-data"
+  ansible.builtin.template:
+    src: templates/vendor-data.j2
+    dest: "/var/www/html/{{ machine_id }}/vendor-data"
+  vars:
+    machine_id: "{{ machine_id }}"
+
+
+
