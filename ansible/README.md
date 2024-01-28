@@ -8,12 +8,19 @@ source venv/bin/activate
 pip --isolated install --upgrade pip
 pip --isolated install -r requirements.txt'
 source ./venv/bin/activate
+ansible-galaxy install -r requirements.yml
 ```
 
-
-## Usage
+## livefs-editor
 
 ```shell
 source ./venv/bin/activate
-ansible-playbook -i ./inventory.yml ./playbooks/livefs-editor.yaml --extra-vars "target=giga1.local"
+ansible-playbook -i ./inventory/ ./playbooks/livefs-editor.yaml --extra-vars "target=your_host.local"
+```
+
+## boot-server
+
+```shell
+source ./venv/bin/activate
+ansible-playbook -i ./inventory/ ./playbooks/boot-server.yaml --extra-vars "target=your_host.local"
 ```

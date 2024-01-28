@@ -1,0 +1,13 @@
+---
+- name: "Create grub.conf files for machine: {{ machine_id }}"
+  ansible.builtin.template:
+    src: templates/grub.conf.j2
+    dest: "/opt/iso/grub-{{ machine_id }}.conf"
+  vars:
+    machine_id: "{{ machine_id }}"
+
+- name: "Create the iso files for machine: {{ machine_id }}"
+  command: "livefs-edit /opt/iso/ubuntu-22.04.3-live-server-amd64.iso /opt/iso/ubuntu-{{ machine_id }}.iso --cp /opt/iso/grub-{{ machine_id }}.conf new/iso/boot/grub/grub.cfg"
+  args: 
+      creates: "/opt/iso/ubuntu-{{ machine_id }}/.iso"
+

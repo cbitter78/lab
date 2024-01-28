@@ -1,0 +1,52 @@
+#cloud-config 
+autoinstall:
+  version: 1
+  timezone: America/New_York
+  storage:
+    layout:
+      name: lvm
+      match:
+        serial: "{{ driver_serial_match }}"
+  ssh:
+    install-server: true
+  identity:
+    realname: 'Charles Bitter'
+    username: cbitter
+    password: '$5$IWwNqL9VUSDoc4Jv$DEUGR.cZQcbz/QvdCOmU13fX5ZW0rANg8LqkAtX3nBA'
+    hostname: {{ machine_id }}
+  reporting:
+    hook:
+      type: webhook
+      endpoint: http://{{ boot_server_ip }}:8088/
+      level: DEBUG
+  late-commands:
+    - apt-get install -y efibootmgr
+    - efibootmgr -b $(efibootmgr | grep "{{ efi_eject_pattern }}" | cut -c 8) -B #Remove USB Disk efi boot entry so it wont build on reboot.
+
+  user-data:
+    package_update: true
+    package_upgrade: true
+    packages:
+      - avahi-daemon
+      - zsh
+      - vim
+      - tmux
+      - curl
+      - wget
+      - gpg
+      - git
+      - python3-debian
+      - python3-pip
+      - python3-venv
+    disable_root: true
+    users:
+      - name: ansible
+        primary_group: users
+        groups: sudo
+        lock_passwd: true
+        ssh_authorized_keys:
+          - "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIO3W7/s00M3oRWxXSQfVofCZNGDcSCsnDBSgDmU80/rX CBitte000@VASML-1724818"
+          - "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIA/RBiMoq+cKP9+rGOfe8d7IXnysqT9k62xWddmaQyop cbitter@mpro.local"
+        sudo: ALL=(ALL) NOPASSWD:ALL
+
+

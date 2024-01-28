@@ -1,0 +1,54 @@
+---
+- name: Boot Server
+  hosts: "{{ target }}"
+  become: yes
+  become_user: root
+  become_method: sudo
+  tasks:
+    - name: install apache2
+      ansible.builtin.apt:
+        name: apache2
+        state: latest
+        update_cache: 'yes'
+    - name: Remove /var/www/html/index.html
+      ansible.builtin.file:
+        path: /var/www/html/index.html
+        state: absent
+    
+    - name: Create meta-data for each host
+      include_tasks: tasks/create_user_data.yaml
+      vars:
+        machine_id: "{{ item.machine_id }}"
+        efi_eject_pattern: "{{ item.efi_eject_pattern }}"
+        driver_serial_match: "{{ item.driver_serial_match }}"
+        boot_server_ip: "{{ hostvars[inventory_hostname].boot_server_ip }}"
+      with_items:
+        - "{{ hostvars[inventory_hostname].boot_server_configs }}"
+
+    - name: Copy file with owner and permissions
+      ansible.builtin.copy:
+        src: build_logs_server.py
+        dest: /opt/iso/build_logs_server.py
+        mode: '0744'
+  roles:
+    - role: mrlesmithjr.netplan
+      become: yes
+      netplan_enabled: true
+      netplan_config_file: /etc/netplan/00-ansible-netplan.yaml
+      netplan_renderer: networkd
+      netplan_remove_existing: true
+      netplan_configuration:
+        network:
+          version: 2
+          ethernets:
+            enp3s0:
+              dhcp4: yes
+              dhcp6: no
+              addresses:
+                - "{{ hostvars[inventory_hostname].boot_server_ip }}/24"
+              routes:
+                - to: default
+                  via: 10.0.0.1
+
+    - role: robertdebock.rsyslog
+      rsyslog_receiver: yes
