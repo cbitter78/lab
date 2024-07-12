@@ -25,12 +25,23 @@
       with_items:
         - "{{ hostvars[inventory_hostname].boot_server_configs }}"
 
+    - name: Create folders we need
+      ansible.builtin.file:
+        path: "{{ item }}"
+        state: directory
+        mode: '0755'
+      loop:
+        - /opt/iso
+
     - name: Copy file with owner and permissions
       ansible.builtin.copy:
         src: build_logs_server.py
         dest: /opt/iso/build_logs_server.py
         mode: '0744'
   roles:
+    - role: robertdebock.rsyslog
+      rsyslog_receiver: yes
+
     - role: mrlesmithjr.netplan
       become: yes
       netplan_enabled: true
@@ -41,7 +52,7 @@
         network:
           version: 2
           ethernets:
-            enp3s0:
+            enx00e04c36885a:  # Need to make this dynamic https://github.com/mrlesmithjr/ansible-netplan/issues/17 
               dhcp4: yes
               dhcp6: no
               addresses:
@@ -49,6 +60,5 @@
               routes:
                 - to: default
                   via: 10.0.0.1
+      when: hostvars[inventory_hostname].boot_server_skip_ip_config is not defined 
 
-    - role: robertdebock.rsyslog
-      rsyslog_receiver: yes

@@ -60,9 +60,9 @@ Boot0005* UEFI OS
 Boot0006* UEFI:  USB DISK 3.0 PMAP
 ```
 
-In this case because I am using [MicroCenter USB drives](https://www.amazon.com/dp/B09YCXYVCL) in almost all the hosts (except the kangaroo where I use an SD card because it has a built in reader) they show up as `UEFI:  USB DISK 3.0 PMAP`.  I define this in the var files for the host that will serve the meta-data.  In my case its [giga1](./ansible/inventory/host_vars/giga1.local.json)
+In this case because I am using [MicroCenter USB drives](https://www.amazon.com/dp/B09YCXYVCL) in almost all the hosts (except the kangaroo where I use an SD card because it has a built in reader) they show up as `UEFI:  USB DISK 3.0 PMAP`.  I define this in the var files for the host that will serve the meta-data.  In my case its [giga1](./ansible/inventory/host_vars/giga1.local.yml)
 
-The first time I booted a host I had to hook up a keyboard, mouse, and monitor so that I could ensure we were using EFI boot was set and that I took note of the hard drive seral number I wanted the OS installed on so I could update the [boot_server_configs](./ansible/inventory/host_vars/giga1.local.json) so that the meta-data file could be customized for each machine.  After that I just needed to boot from the USB Disk and watch it go (or not).
+The first time I booted a host I had to hook up a keyboard, mouse, and monitor so that I could ensure we were using EFI boot was set and that I took note of the hard drive seral number I wanted the OS installed on so I could update the [boot_server_configs](./ansible/inventory/host_vars/giga1.local.yml) so that the meta-data file could be customized for each machine.  After that I just needed to boot from the USB Disk and watch it go (or not).
 
 To rebuild a host, I just need to log into it via ssh and use efibootmgr to tell it on next boot use the usb stick.  This is why I switched to all EFI because from the OS I can select the next boot.  This is done by listing the efiboot options with `efibootmgr` finding the boot number for the USB stick and running `efibootmgr -n Number` so in our case
 

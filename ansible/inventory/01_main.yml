@@ -1,0 +1,5 @@
+---
+boot_server:
+  hosts:
+    rpiold.local:
+    kanga.local:

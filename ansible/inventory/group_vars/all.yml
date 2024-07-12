@@ -1,0 +1,22 @@
+---
+ansible_user: ansible
+boot_server_ip: 10.0.0.254
+boot_server_configs:
+- machine_id: giga1
+  driver_serial_match: KINGSTON_SMS200S360G_500*
+  efi_eject_pattern: USB DISK
+- machine_id: giga2
+  driver_serial_match: KINGSTON_SMS200S360G_500*
+  efi_eject_pattern: USB DISK
+- machine_id: giga3
+  driver_serial_match: KINGSTON_SMS200S360G_500*
+  efi_eject_pattern: USB DISK
+- machine_id: giga4
+  driver_serial_match: KINGSTON_SMS200S360G_500*
+  efi_eject_pattern: USB DISK
+- machine_id: giga5
+  driver_serial_match: KINGSTON_SMS200S360G_500*
+  efi_eject_pattern: USB DISK
+- machine_id: kanga
+  driver_serial_match: '0x8205c0d5'
+  efi_eject_pattern: MMC
